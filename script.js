@@ -23,31 +23,31 @@ const days = [
         msg: "Nothing is sweeter than chocolate... except you. (Okay, maybe you covered in chocolate? 😉) Sending you virtual sweetness!" 
     },
     { 
-        date: `${year}-02-1`, 
+        date: `${year}-02-01`, 
         title: "Teddy Day 🧸", 
         emoji: "🧸",
         msg: "I can't always be there to hold you, so here is a virtual teddy bear hug! Squeeze your phone... I'm sending a hug right now." 
     },
     { 
-        date: `${year}-02-1`, 
+        date: `${year}-02-01`, 
         title: "Promise Day 🤝", 
         emoji: "🤞",
         msg: "I promise to laugh at your bad jokes, to support your dreams, and to love you even when you're hangry. Forever and always." 
     },
     { 
-        date: `${year}-02-1`, 
+        date: `${year}-02-01`, 
         title: "Hug Day 🤗", 
         emoji: "🫂",
         msg: "If I could, I'd teleport to you right now for a massive bear hug. Until then, consider this message a warm embrace." 
     },
     { 
-        date: `${year}-02-1`, 
+        date: `${year}-02-01`, 
         title: "Kiss Day 💋", 
         emoji: "💋",
         msg: "MWAH! 💋 Sending you a thousand kisses. Catch them all!" 
     },
     { 
-        date: `${year}-02-1`, 
+        date: `${year}-02-01`, 
         title: "Valentine's Day ❤️", 
         emoji: "💖",
         msg: "Happy Valentine's Day, my love! You are my best friend, my partner, and my whole world. I love you more than code loves semicolons." 
@@ -132,5 +132,5 @@ styleSheet.innerText = `
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 `;
-
 document.head.appendChild(styleSheet);
+
