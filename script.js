@@ -5,49 +5,49 @@ const year = 2026;
 // The content for each day
 const days = [
     { 
-        date: `${year}-02-07`, 
+        date: `${year}-02-02`, 
         title: "Rose Day 🌹", 
         emoji: "🌹",
         msg: "Happy Rose Day! Unlike a real rose, my love for you will never wither. You are the most beautiful flower in my garden." 
     },
     { 
-        date: `${year}-02-08`, 
+        date: `${year}-02-02`, 
         title: "Propose Day 💍", 
         emoji: "💍",
         msg: "I might have already asked, or maybe I'm waiting for the right moment... but today I just want to say: I choose you. Every single day." 
     },
     { 
-        date: `${year}-02-09`, 
+        date: `${year}-02-02`, 
         title: "Chocolate Day 🍫", 
         emoji: "🍫",
         msg: "Nothing is sweeter than chocolate... except you. (Okay, maybe you covered in chocolate? 😉) Sending you virtual sweetness!" 
     },
     { 
-        date: `${year}-02-10`, 
+        date: `${year}-02-1`, 
         title: "Teddy Day 🧸", 
         emoji: "🧸",
         msg: "I can't always be there to hold you, so here is a virtual teddy bear hug! Squeeze your phone... I'm sending a hug right now." 
     },
     { 
-        date: `${year}-02-11`, 
+        date: `${year}-02-1`, 
         title: "Promise Day 🤝", 
         emoji: "🤞",
         msg: "I promise to laugh at your bad jokes, to support your dreams, and to love you even when you're hangry. Forever and always." 
     },
     { 
-        date: `${year}-02-12`, 
+        date: `${year}-02-1`, 
         title: "Hug Day 🤗", 
         emoji: "🫂",
         msg: "If I could, I'd teleport to you right now for a massive bear hug. Until then, consider this message a warm embrace." 
     },
     { 
-        date: `${year}-02-13`, 
+        date: `${year}-02-1`, 
         title: "Kiss Day 💋", 
         emoji: "💋",
         msg: "MWAH! 💋 Sending you a thousand kisses. Catch them all!" 
     },
     { 
-        date: `${year}-02-14`, 
+        date: `${year}-02-1`, 
         title: "Valentine's Day ❤️", 
         emoji: "💖",
         msg: "Happy Valentine's Day, my love! You are my best friend, my partner, and my whole world. I love you more than code loves semicolons." 
@@ -132,4 +132,5 @@ styleSheet.innerText = `
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 `;
+
 document.head.appendChild(styleSheet);
