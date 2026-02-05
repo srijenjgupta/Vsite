@@ -3,41 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Valentine ❤️</title>
-    <link rel="stylesheet" href="style.css">
+    <title>A Special Surprise for You❤️</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --wine: #590d22; 
+            --deep-rose: #a4133c;
+            --text-dark: #2d2d2d;
+            --bg-subtle: #fff5f6; /* Soft cream/blush */
+            --card-white: #ffffff;
+        }
 
-    <meta property="og:title" content="A Surprise for My Love ❤️">
-    <meta property="og:description" content="A special unlockable gift for every day of Valentine's week. Tap to open!">
-    <meta property="og:image" content="https://i.ibb.co/vzDpF9d/love-preview.jpg"> <meta property="og:type" content="website">
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            font-family: 'Nunito', sans-serif; 
+            background-color: var(--bg-subtle);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* CAPTIVATING BACKGROUND */
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at center, #ffffff 0%, #ffeef1 100%);
+        }
+
+        /* ENVELOPE COVER */
+        #card-cover {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--wine); z-index: 3000;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: transform 0.8s ease-in-out;
+        }
+        .opened { transform: translateY(-100%); }
+
+        .envelope-content { text-align: center; color: #fff; }
+        .envelope-content h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; margin-bottom: 10px; }
+        .heart-seal { font-size: 60px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+
+        /* MAIN UI */
+        .container { padding: 40px 20px; max-width: 500px; margin: auto; text-align: center; }
+        h2 { font-family: 'Dancing Script', cursive; font-size: 3.2rem; color: var(--wine); margin-bottom: 5px; }
+        .subtitle { color: var(--text-dark); font-weight: 600; font-size: 1rem; opacity: 0.7; margin-bottom: 30px; }
+
+        /* GRID BUTTONS (STATIONERY STYLE) */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .day-btn { 
+            background: var(--card-white);
+            border: 1px solid #eee;
+            padding: 25px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 800;
+            color: var(--wine); /* Darker font */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            font-size: 1rem;
+        }
+        .day-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--soft-pink); }
+        .locked { background: #f9f9f9; color: #bbb; cursor: not-allowed; border-style: dashed; }
+
+        /* MODAL (STATIONERY FEEL) */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.3); z-index: 4000; 
+            align-items: center; justify-content: center; backdrop-filter: blur(5px); 
+        }
+        
+        .modal-content { 
+            background: var(--card-white); padding: 40px 30px; border-radius: 20px; 
+            width: 85%; max-width: 360px; position: relative; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+            text-align: center; border-bottom: 5px solid var(--wine);
+        }
+        
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #999; }
+
+        #modal-title { font-family: 'Dancing Script', cursive; color: var(--wine); font-size: 2.6rem; margin: 0; }
+        #modal-emoji { font-size: 70px; margin: 20px 0; display: block; }
+        #modal-message { font-size: 1.1rem; line-height: 1.6; color: var(--text-dark); font-weight: 400; margin-bottom: 20px; }
+
+        /* GAMES */
+        #game-container { border-top: 1px solid #f0f0f0; padding-top: 20px; margin-top: 20px; }
+        .game-btn { 
+            background: var(--wine); color: white; border: none; padding: 12px 24px; 
+            border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem;
+        }
+        .choice-card { 
+            display: inline-block; padding: 12px; margin: 5px; border: 1px solid #eee;
+            border-radius: 12px; cursor: pointer; transition: 0.2s; background: #fff;
+        }
+        .choice-card:hover { border-color: var(--wine); background: #fffcfd; }
+        .choice-emoji { font-size: 30px; display: block; margin-bottom: 4px; }
+        .choice-label { font-size: 0.8rem; font-weight: 800; color: var(--wine); }
+
+        .reveal-text { font-weight: 700; margin-top: 15px; color: var(--deep-rose); font-size: 1.1rem; }
+
+        /* FLOATING HEARTS (SUBTLE) */
+        .floating-heart {
+            position: absolute; color: rgba(164, 19, 60, 0.1); font-size: 20px;
+            pointer-events: none; animation: fly linear infinite;
+        }
+        @keyframes fly {
+            from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="background-hearts"></div>
+    <div id="card-cover" onclick="openCard()">
+        <div class="envelope-content">
+            <div class="heart-seal">💌</div>
+            <h1>A little note...</h1>
+            <p>TAP TO UNWRAP</p>
+        </div>
+    </div>
+
+    <div class="bg-layer"></div>
 
     <div class="container">
-        <header>
-            <h1>❤️ Valentine's Week ❤️</h1>
-            <p class="subtitle">Come back every day for a new surprise...</p>
-        </header>
-
-        <div class="grid-container" id="button-grid">
-            </div>
+        <h2>❤️ Valentine's Week ❤️</h2>
+        <p class="subtitle">I've been counting down the days.</p>
+        <div class="grid" id="button-grid"></div>
     </div>
 
     <div id="loveModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div id="modal-content-body">
-                <h2 id="modal-title">Title</h2>
-                <div class="modal-image" id="modal-image"></div>
-                <p id="modal-message">Message...</p>
-                <div id="confetti-placeholder"></div>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-emoji"></div>
+            <p id="modal-message"></p>
+            
+            <div id="game-container" class="hidden">
+                <div id="game-content"></div>
+                <div id="game-reveal" class="reveal-text"></div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const year = 2026;
+        const days = [
+            { date: `${year}-02-07`, title: "Rose Day", emoji: "🌹", type: "rose-game", msg: "Like a rose, my love for you blooms more every day. Pick a flower!" },
+            { date: `${year}-02-08`, title: "Propose Day", emoji: "💍", type: "msg", msg: "I’d choose you in every lifetime. No questions asked." },
+            { date: `${year}-02-09`, title: "Chocolate Day", emoji: "🍫", type: "choco-game", msg: "You're sweeter than any treat. Choose a chocolate flavor!" },
+            { date: `${year}-02-10`, title: "Teddy Day", emoji: "🧸", type: "msg", msg: "A soft virtual teddy until I can hold you for real." },
+            { date: `${year}-02-11`, title: "Promise Day", emoji: "🤞", type: "promise", msg: "I promise to always keep the spark alive between us." },
+            { date: `${year}-02-12`, title: "Hug Day", emoji: "🤗", type: "hug", msg: "Sending you 1,000 virtual hugs today!" },
+            { date: `${year}-02-13`, title: "Kiss Day", emoji: "💋", type: "msg", msg: "Muah! Consider this a deposit for the real ones." },
+            { date: `${year}-02-14`, title: "Valentine's Day", emoji: "💖", type: "valentine", msg: "You are my world, my love, and my everything." }
+        ];
+
+        function openCard() {
+            document.getElementById('card-cover').classList.add('opened');
+            createHearts();
+        }
+
+        const today = new Date("2026-02-14"); 
+        const grid = document.getElementById("button-grid");
+
+        days.forEach(day => {
+            const btn = document.createElement("div");
+            btn.className = "day-btn";
+            const targetDate = new Date(day.date);
+            targetDate.setHours(0,0,0,0);
+            today.setHours(0,0,0,0);
+
+            if (today < targetDate) {
+                btn.classList.add("locked");
+                btn.innerHTML = `🔒<br>Feb ${day.date.split('-')[2]}`;
+                btn.onclick = () => alert("Wait for the right day! Good things take time. ❤️");
+            } else {
+                btn.innerHTML = `${day.emoji}<br>${day.title}`;
+                btn.onclick = () => openModal(day);
+            }
+            grid.appendChild(btn);
+        });
+
+        function openModal(day) {
+            document.getElementById("modal-title").innerText = day.title;
+            document.getElementById("modal-emoji").innerText = day.emoji;
+            document.getElementById("modal-message").innerText = day.msg;
+            
+            const gameZone = document.getElementById("game-container");
+            const gameContent = document.getElementById("game-content");
+            const gameReveal = document.getElementById("game-reveal");
+            
+            gameZone.classList.add("hidden");
+            gameContent.innerHTML = "";
+            gameReveal.innerText = "";
+
+            if (day.type === "rose-game") {
+                gameZone.classList.remove("hidden");
+                gameContent.innerHTML = `
+                    <div class="choice-card" onclick="reveal('Red Rose: Deep Passion ❤️')"><span class="choice-emoji">🌹</span><span class="choice-label">RED</span></div>
+                    <div class="choice-card" onclick="reveal('Yellow Rose: Pure Joy 💛')"><span class="choice-emoji">💛</span><span class="choice-label">YELLOW</span></div>
+                    <div class="choice-card" onclick="reveal('White Rose: Real Love 🤍')"><span class="choice-emoji">🤍</span><span class="choice-label">WHITE</span></div>`;
+            } else if (day.type === "choco-game") {
+                gameZone.classList.remove("hidden");
+                gameContent.innerHTML = `
+                    <div class="choice-card" onclick="reveal('Dark: Bold & Strong Love 🍫')"><span class="choice-emoji">🍩</span><span class="choice-label">DARK</span></div>
+                    <div class="choice-card" onclick="reveal('Milk: Sweet & Tender 🍫')"><span class="choice-emoji">🍫</span><span class="choice-label">MILK</span></div>`;
+            } else if (day.type === "promise") {
+                gameZone.classList.remove("hidden");
+                gameContent.innerHTML = `<button class="game-btn" onclick="reveal('Pinky Promise Kept Forever! 🤞')">SEAL THE PROMISE</button>`;
+            } else if (day.type === "hug") {
+                gameZone.classList.remove("hidden");
+                gameContent.innerHTML = `<button class="game-btn" onclick="reveal('HUG DELIVERED! 🤗')">GET YOUR HUG</button>`;
+            } else if (day.type === "valentine") {
+                gameZone.classList.remove("hidden");
+                gameContent.innerHTML = `<button class="game-btn" onclick="reveal('I Knew It! ❤️')">YES</button> 
+                                         <button id="no-btn" class="game-btn" onmouseover="moveNo()" style="background:#ddd; color:#555;">NO</button>`;
+            }
+
+            document.getElementById("loveModal").style.display = "flex";
+        }
+
+        window.reveal = (text) => { document.getElementById("game-reveal").innerText = text; };
+
+        function moveNo() {
+            const btn = document.getElementById("no-btn");
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * 60 + 20 + '%';
+            btn.style.top = Math.random() * 60 + 20 + '%';
+        }
+
+        function createHearts() {
+            for(let i=0; i<15; i++) {
+                const h = document.createElement('div');
+                h.className = 'floating-heart';
+                h.innerText = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                h.style.delay = Math.random() * 5 + 's';
+                document.body.appendChild(h);
+            }
+        }
+
+        function closeModal() { document.getElementById("loveModal").style.display = "none"; }
+    </script>
 </body>
 </html>
